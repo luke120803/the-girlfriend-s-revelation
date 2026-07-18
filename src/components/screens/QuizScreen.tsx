@@ -1,0 +1,59 @@
+import { useState } from "react";
+import { ScreenSection } from "../journey/ScreenSection";
+import { QuestionCard } from "../journey/QuestionCard";
+import { QuizResult } from "../journey/QuizResult";
+import { QUIZ } from "@/content/copy";
+import { AnimatePresence, motion } from "motion/react";
+
+type QuizScreenProps = {
+  onAdvance: () => void;
+};
+
+export function QuizScreen({ onAdvance }: QuizScreenProps) {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [isQuizComplete, setIsQuizComplete] = useState(false);
+
+  const handleAnswer = (isCorrect: boolean) => {
+    if (isCorrect) {
+      setScore(score + 1);
+    }
+    setTimeout(() => {
+      if (currentQuestionIndex < QUIZ.questions.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      } else {
+        setIsQuizComplete(true);
+      }
+    }, 1500);
+  };
+
+  return (
+    <ScreenSection id="quiz">
+      <AnimatePresence>
+        {!isQuizComplete ? (
+          <motion.div
+            key={currentQuestionIndex}
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -300 }}
+            transition={{ duration: 0.5 }}
+          >
+            <QuestionCard
+              question={QUIZ.questions[currentQuestionIndex].question}
+              options={QUIZ.questions[currentQuestionIndex].options}
+              answer={QUIZ.questions[currentQuestionIndex].answer}
+              feedback={QUIZ.questions[currentQuestionIndex].feedback}
+              onAnswer={handleAnswer}
+            />
+          </motion.div>
+        ) : (
+          <QuizResult
+            score={score}
+            total={QUIZ.questions.length}
+            onAdvance={onAdvance}
+          />
+        )}
+      </AnimatePresence>
+    </ScreenSection>
+  );
+}

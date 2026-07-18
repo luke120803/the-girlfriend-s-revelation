@@ -2,36 +2,47 @@ import { ScreenSection } from "../journey/ScreenSection";
 import { Reveal } from "../Reveal";
 import { HER } from "@/content/copy";
 import { PulsingHeart } from "../journey/PulsingHeart";
+import { Link } from "@tanstack/react-router";
+import { Button } from "../ui/button";
+import { Ornament } from "../journey/Ornament";
 
 export function ClosingScreen() {
   return (
     <ScreenSection id="encerramento">
       <div className="flex w-full flex-col items-center text-center">
         <Reveal>
-          <p className="font-hand text-lg text-text-secondary">
+          <Ornament className="text-accent-dark/50" />
+        </Reveal>
+        <Reveal delay={0.2}>
+          <p className="font-hand text-lg text-text-secondary mt-4">
             com carinho,
           </p>
         </Reveal>
-        <Reveal delay={0.2}>
+        <Reveal delay={0.4}>
           <h2 className="font-display mt-6 text-[clamp(2rem,8vw,3rem)] leading-[1.05] text-text-primary">
             para a<br />
             <span className="italic text-accent-dark">{HER.name}.</span>
           </h2>
         </Reveal>
-        <Reveal delay={0.4}>
+        <Reveal delay={0.6}>
           <div
             aria-hidden
             className="mt-10 h-px w-16"
             style={{ backgroundColor: "var(--accent)" }}
           />
         </Reveal>
-        <Reveal delay={0.6}>
+        <Reveal delay={0.8}>
           <p className="mt-10 text-xs tracking-[0.4em] uppercase text-text-muted">
             fim · {HER.birthday}
           </p>
         </Reveal>
-        <Reveal delay={0.8} className="mt-10">
+        <Reveal delay={1.0} className="mt-10">
           <PulsingHeart />
+        </Reveal>
+        <Reveal delay={1.2} className="mt-12">
+          <Link to="/hub">
+            <Button variant="outline">Explorar mais memórias</Button>
+          </Link>
         </Reveal>
       </div>
     </ScreenSection>
