@@ -1,0 +1,42 @@
+import { ScreenSection } from "../journey/ScreenSection";
+import { AdvanceButton } from "../journey/AdvanceButton";
+import { Reveal } from "../Reveal";
+
+/**
+ * Ato IV — Clímax (Carta). Placeholder da carta + surpresa.
+ * Typewriter e confetti entram na Etapa 4.
+ */
+export function LetterScreen({ onAdvance }: { onAdvance: () => void }) {
+  return (
+    <ScreenSection id="ato-4">
+      <Reveal>
+        <span className="text-xs tracking-[0.35em] uppercase text-accent">
+          Ato IV · Clímax
+        </span>
+      </Reveal>
+      <Reveal delay={0.15}>
+        <h2 className="font-display mt-4 text-[clamp(2rem,7vw,2.5rem)] leading-[1.1] text-text-primary">
+          Uma carta,<br />
+          <span className="italic text-accent-dark">só sua.</span>
+        </h2>
+      </Reveal>
+
+      <Reveal delay={0.3} className="mt-8 w-full">
+        <article
+          className="p-6 bg-bg-card"
+          style={{ borderRadius: 8, boxShadow: "var(--shadow-medium)" }}
+        >
+          <p className="font-hand text-lg leading-relaxed text-text-secondary">
+            [ carta ainda por escrever — placeholder ]
+          </p>
+        </article>
+      </Reveal>
+
+      <Reveal delay={0.5} className="mt-12">
+        <AdvanceButton variant="ghost" onClick={onAdvance}>
+          Fechar
+        </AdvanceButton>
+      </Reveal>
+    </ScreenSection>
+  );
+}
