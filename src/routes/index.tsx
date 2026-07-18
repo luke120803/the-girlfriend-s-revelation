@@ -1,33 +1,41 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useCallback } from "react";
 import { JourneyShell } from "@/components/JourneyShell";
-import { Reveal } from "@/components/Reveal";
-import { COVER, HER } from "@/content/copy";
+import { ProgressDots } from "@/components/journey/ProgressDots";
+import { CoverScreen } from "@/components/screens/CoverScreen";
+import { PreambleScreen } from "@/components/screens/PreambleScreen";
+import { RevelationScreen } from "@/components/screens/RevelationScreen";
+import { MosaicScreen } from "@/components/screens/MosaicScreen";
+import { LetterScreen } from "@/components/screens/LetterScreen";
+import { ClosingScreen } from "@/components/screens/ClosingScreen";
+import { ACTS } from "@/content/acts";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
+  const scrollTo = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    // sincroniza hash sem interferir com o smooth scroll
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", `#${id}`);
+    }
+  }, []);
+
   return (
-    <JourneyShell>
-      {/* Etapa 0 — validação de fundação: paleta + fontes carregadas */}
-      <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
-        <Reveal>
-          <p className="font-hand text-lg text-text-secondary">{COVER.whisper}</p>
-        </Reveal>
-        <Reveal delay={0.15}>
-          <h1 className="font-display mt-6 text-[clamp(2.5rem,10vw,4rem)] leading-[1.05] font-semibold text-text-primary">
-            Feliz Aniversário,
-            <br />
-            <span className="italic text-accent-dark">{HER.name}</span>
-          </h1>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <p className="mt-8 text-sm tracking-[0.3em] uppercase text-text-muted">
-            {HER.birthday}
-          </p>
-        </Reveal>
-      </section>
-    </JourneyShell>
+    <>
+      <ProgressDots acts={ACTS.map((a) => ({ id: a.id, label: a.label }))} />
+      <JourneyShell>
+        <CoverScreen onAdvance={() => scrollTo("preambulo")} />
+        <PreambleScreen onAdvance={() => scrollTo("ato-2")} />
+        <RevelationScreen onAdvance={() => scrollTo("ato-3")} />
+        <MosaicScreen onAdvance={() => scrollTo("ato-4")} />
+        <LetterScreen onAdvance={() => scrollTo("encerramento")} />
+        <ClosingScreen />
+      </JourneyShell>
+    </>
   );
 }
