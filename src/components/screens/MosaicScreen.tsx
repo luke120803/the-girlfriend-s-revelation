@@ -1,11 +1,28 @@
+import { useState } from "react";
 import { ScreenSection } from "../journey/ScreenSection";
 import { AdvanceButton } from "../journey/AdvanceButton";
 import { Reveal } from "../Reveal";
+import { VideoCard } from "../journey/VideoCard";
 
 /**
- * Ato III — Conexão. Mosaico assimétrico (2+1, 1+2) só de placeholders.
+ * Ato III — Conexão. Mosaico assimétrico de vídeos.
  */
 export function MosaicScreen({ onAdvance }: { onAdvance: () => void }) {
+  const [watchedVideos, setWatchedVideos] = useState(0);
+  const allVideosWatched = watchedVideos === 5;
+
+  const handleVideoPlay = () => {
+    setWatchedVideos((count) => count + 1);
+  };
+
+  const videos = [
+    { thumbnail: "https://picsum.photos/seed/A/400/300", videoUrl: "", className: "col-span-2 aspect-[4/3]" },
+    { thumbnail: "https://picsum.photos/seed/B/300/300", videoUrl: "", className: "col-span-1 aspect-square" },
+    { thumbnail: "https://picsum.photos/seed/C/300/300", videoUrl: "", className: "col-span-1 aspect-square" },
+    { thumbnail: "https://picsum.photos/seed/D/400/300", videoUrl: "", className: "col-span-2 aspect-[4/3]" },
+    { thumbnail: "https://picsum.photos/seed/E/800/450", videoUrl: "", className: "col-span-3 aspect-[16/9]" },
+  ];
+
   return (
     <ScreenSection id="ato-3" className="bg-bg-secondary">
       <Reveal>
@@ -20,33 +37,27 @@ export function MosaicScreen({ onAdvance }: { onAdvance: () => void }) {
         </h2>
       </Reveal>
 
-      {/* mosaico assimétrico — 3 linhas: 2+1, 1+2, full */}
-      <Reveal delay={0.3} className="mt-10 grid w-full grid-cols-3 gap-3">
-        <Placeholder className="col-span-2 aspect-[4/3]" label="A" />
-        <Placeholder className="col-span-1 aspect-square" label="B" />
-        <Placeholder className="col-span-1 aspect-square" label="C" />
-        <Placeholder className="col-span-2 aspect-[4/3]" label="D" />
-        <Placeholder className="col-span-3 aspect-[16/9]" label="E" />
-      </Reveal>
+      <div className="mt-10 grid w-full grid-cols-3 gap-3">
+        {videos.map((video, index) => (
+          <Reveal key={index} delay={0.3 + index * 0.1} className={video.className}>
+            <VideoCard
+              thumbnail={video.thumbnail}
+              videoUrl={video.videoUrl}
+              onVideoPlay={handleVideoPlay}
+            />
+          </Reveal>
+        ))}
+      </div>
 
       <Reveal delay={0.5} className="mt-12">
-        <AdvanceButton variant="ghost" onClick={onAdvance}>
+        <AdvanceButton
+          variant="ghost"
+          onClick={onAdvance}
+          disabled={!allVideosWatched}
+        >
           Seguir
         </AdvanceButton>
       </Reveal>
     </ScreenSection>
-  );
-}
-
-function Placeholder({ className, label }: { className: string; label: string }) {
-  return (
-    <div
-      className={`${className} flex items-end p-3 bg-bg-card`}
-      style={{ borderRadius: 8, boxShadow: "var(--shadow-soft)" }}
-    >
-      <span className="text-[10px] tracking-[0.3em] uppercase text-text-muted">
-        {label}
-      </span>
-    </div>
   );
 }

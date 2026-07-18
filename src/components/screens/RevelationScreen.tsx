@@ -1,12 +1,39 @@
+import { useState } from "react";
 import { ScreenSection } from "../journey/ScreenSection";
 import { AdvanceButton } from "../journey/AdvanceButton";
 import { Reveal } from "../Reveal";
+import { FlippableCard } from "../journey/FlippableCard";
 
 /**
- * Ato II — Descoberta. Estrutura vazia: grid 2x2 de placeholders.
- * Flip 3D + conteúdo real entram na Etapa 2 do plano.
+ * Ato II — Descoberta. Estrutura com cards 3D que revelam conteúdo.
  */
 export function RevelationScreen({ onAdvance }: { onAdvance: () => void }) {
+  const [flippedCards, setFlippedCards] = useState(0);
+  const allCardsFlipped = flippedCards === 4;
+
+  const handleCardFlip = () => {
+    setFlippedCards((count) => count + 1);
+  };
+
+  const cards = [
+    {
+      front: <div className="flex items-center justify-center h-full text-4xl font-display text-text-muted">1</div>,
+      back: <p className="text-sm text-text-secondary">"O primeiro olhar, a primeira conversa..."</p>,
+    },
+    {
+      front: <div className="flex items-center justify-center h-full text-4xl font-display text-text-muted">2</div>,
+      back: <p className="text-sm text-text-secondary">"A cumplicidade nos pequenos gestos..."</p>,
+    },
+    {
+      front: <div className="flex items-center justify-center h-full text-4xl font-display text-text-muted">3</div>,
+      back: <p className="text-sm text-text-secondary">"Os sonhos que compartilhamos..."</p>,
+    },
+    {
+      front: <div className="flex items-center justify-center h-full text-4xl font-display text-text-muted">4</div>,
+      back: <p className="text-sm text-text-secondary">"E a certeza de que o futuro é nosso."</p>,
+    },
+  ];
+
   return (
     <ScreenSection id="ato-2">
       <Reveal>
@@ -21,25 +48,22 @@ export function RevelationScreen({ onAdvance }: { onAdvance: () => void }) {
         </h2>
       </Reveal>
 
-      <Reveal delay={0.3} className="mt-10 grid w-full grid-cols-2 gap-4">
-        {[1, 2, 3, 4].map((n) => (
-          <div
-            key={n}
-            className="aspect-[3/4] flex items-end p-4 bg-bg-card"
-            style={{
-              borderRadius: 8,
-              boxShadow: "var(--shadow-soft)",
-            }}
-          >
-            <span className="text-[10px] tracking-[0.3em] uppercase text-text-muted">
-              Card {n}
-            </span>
-          </div>
+      <div className="mt-10 grid w-full grid-cols-2 gap-4">
+        {cards.map((card, index) => (
+          <Reveal key={index} delay={0.3 + index * 0.1}>
+            <div onClick={handleCardFlip}>
+              <FlippableCard front={card.front} back={card.back} />
+            </div>
+          </Reveal>
         ))}
-      </Reveal>
+      </div>
 
       <Reveal delay={0.5} className="mt-12">
-        <AdvanceButton variant="ghost" onClick={onAdvance}>
+        <AdvanceButton
+          variant="ghost"
+          onClick={onAdvance}
+          disabled={!allCardsFlipped}
+        >
           Seguir
         </AdvanceButton>
       </Reveal>

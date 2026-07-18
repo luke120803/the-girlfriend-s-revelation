@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { ScreenSection } from "../journey/ScreenSection";
 import { COVER, HER } from "@/content/copy";
 import { EASE_CINEMA } from "@/lib/motion";
+import { AnimatedText } from "../journey/AnimatedText";
 
 /**
  * Tela 1 — Capa / Ato 1: Expectativa.
@@ -75,30 +76,15 @@ export function CoverScreen({ onAdvance }: { onAdvance: () => void }) {
 
         {/* Título editorial */}
         <h1 className="font-display mt-6 text-[clamp(3rem,14vw,5rem)] leading-[0.95] font-medium text-text-primary">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: EASE_CINEMA, delay: 0.7 }}
-            className="block"
-          >
-            Feliz
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: EASE_CINEMA, delay: 0.9 }}
-            className="block pl-6 text-text-secondary"
-          >
-            aniversário,
-          </motion.span>
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: EASE_CINEMA, delay: 1.15 }}
-            className="mt-2 block pl-10 font-hand text-accent-dark"
-          >
-            {HER.name}.
-          </motion.span>
+          <span className="block">
+            <AnimatedText text="Feliz" delay={0.7} />
+          </span>
+          <span className="block pl-6 text-text-secondary">
+            <AnimatedText text="aniversário," delay={0.9} />
+          </span>
+          <span className="mt-2 block pl-10 font-hand text-accent-dark">
+            <AnimatedText text={`${HER.name}.`} delay={1.15} />
+          </span>
         </h1>
 
         {/* Sussurro em Boska */}

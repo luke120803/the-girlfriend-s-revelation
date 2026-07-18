@@ -1,6 +1,7 @@
 import { ScreenSection } from "../journey/ScreenSection";
 import { Reveal } from "../Reveal";
 import { HER } from "@/content/copy";
+import { PulsingHeart } from "../journey/PulsingHeart";
 
 export function ClosingScreen() {
   return (
@@ -28,6 +29,9 @@ export function ClosingScreen() {
           <p className="mt-10 text-xs tracking-[0.4em] uppercase text-text-muted">
             fim · {HER.birthday}
           </p>
+        </Reveal>
+        <Reveal delay={0.8} className="mt-10">
+          <PulsingHeart />
         </Reveal>
       </div>
     </ScreenSection>

@@ -1,12 +1,26 @@
+import { useState } from "react";
 import { ScreenSection } from "../journey/ScreenSection";
 import { AdvanceButton } from "../journey/AdvanceButton";
 import { Reveal } from "../Reveal";
+import { Typewriter } from "../journey/Typewriter";
+import { LETTER } from "@/content/copy";
+import confetti from "canvas-confetti";
 
 /**
- * Ato IV — Clímax (Carta). Placeholder da carta + surpresa.
- * Typewriter e confetti entram na Etapa 4.
+ * Ato IV — Clímax (Carta). Efeito de digitação e confetti.
  */
 export function LetterScreen({ onAdvance }: { onAdvance: () => void }) {
+  const [isLetterComplete, setIsLetterComplete] = useState(false);
+
+  const handleLetterComplete = () => {
+    setIsLetterComplete(true);
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  };
+
   return (
     <ScreenSection id="ato-4">
       <Reveal>
@@ -26,17 +40,21 @@ export function LetterScreen({ onAdvance }: { onAdvance: () => void }) {
           className="p-6 bg-bg-card"
           style={{ borderRadius: 8, boxShadow: "var(--shadow-medium)" }}
         >
-          <p className="font-hand text-lg leading-relaxed text-text-secondary">
-            [ carta ainda por escrever — placeholder ]
-          </p>
+          <Typewriter
+            text={LETTER.body}
+            className="font-hand text-lg leading-relaxed text-text-secondary whitespace-pre-wrap"
+            onComplete={handleLetterComplete}
+          />
         </article>
       </Reveal>
 
-      <Reveal delay={0.5} className="mt-12">
-        <AdvanceButton variant="ghost" onClick={onAdvance}>
-          Fechar
-        </AdvanceButton>
-      </Reveal>
+      {isLetterComplete && (
+        <Reveal delay={0.5} className="mt-12">
+          <AdvanceButton variant="ghost" onClick={onAdvance}>
+            {LETTER.cta}
+          </AdvanceButton>
+        </Reveal>
+      )}
     </ScreenSection>
   );
 }
