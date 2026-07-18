@@ -1,24 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { JourneyShell } from "@/components/JourneyShell";
+import { Reveal } from "@/components/Reveal";
+import { COVER, HER } from "@/content/copy";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <JourneyShell>
+      {/* Etapa 0 — validação de fundação: paleta + fontes carregadas */}
+      <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
+        <Reveal>
+          <p className="font-hand text-lg text-text-secondary">{COVER.whisper}</p>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <h1 className="font-display mt-6 text-[clamp(2.5rem,10vw,4rem)] leading-[1.05] font-semibold text-text-primary">
+            Feliz Aniversário,
+            <br />
+            <span className="italic text-accent-dark">{HER.name}</span>
+          </h1>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <p className="mt-8 text-sm tracking-[0.3em] uppercase text-text-muted">
+            {HER.birthday}
+          </p>
+        </Reveal>
+      </section>
+    </JourneyShell>
   );
 }
