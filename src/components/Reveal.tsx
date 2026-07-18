@@ -4,15 +4,14 @@ type Props = {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: keyof React.JSX.IntrinsicElements;
 };
 
 /**
  * Fade-in + slide-up quando entra em viewport.
  * Respeita prefers-reduced-motion via CSS global.
  */
-export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }: Props) {
-  const ref = useRef<HTMLElement | null>(null);
+export function Reveal({ children, delay = 0, className = "" }: Props) {
+  const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -41,9 +40,8 @@ export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }:
   };
 
   return (
-    // biome-ignore lint: dynamic tag
-    <Tag ref={ref as never} className={className} style={style}>
+    <div ref={ref} className={className} style={style}>
       {children}
-    </Tag>
+    </div>
   );
 }
