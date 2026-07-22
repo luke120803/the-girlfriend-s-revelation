@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useAtmosphere, AtmosphereTheme } from "@/hooks/useAtmosphere";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Castle, Bird, Fish, Heart, Star, Cloud } from "lucide-react";
+import anime from "animejs";
 
 /**
  * Componente que renderiza elementos visuais sutis baseados no tema atual.
@@ -44,6 +45,24 @@ export function AtmosphereElements() {
 }
 
 function BalletElements() {
+  const lineRef = useRef<SVGPathElement>(null);
+
+  useEffect(() => {
+    if (lineRef.current) {
+      anime({
+        targets: lineRef.current,
+        d: [
+          { value: "M-100,200 Q400,100 900,300" },
+          { value: "M-100,300 Q500,200 900,100" }
+        ],
+        duration: 8000,
+        direction: 'alternate',
+        loop: true,
+        easing: 'easeInOutSine'
+      });
+    }
+  }, []);
+
   return (
     <div className="absolute inset-0">
       {/* Nuvenzinhas leves e linhas fluidas */}
@@ -53,13 +72,14 @@ function BalletElements() {
       />
       <svg className="absolute top-0 left-0 w-full h-full opacity-[0.03] text-accent">
         <motion.path
+          ref={lineRef}
           d="M-100,200 Q400,100 900,300"
           fill="none"
           stroke="currentColor"
           strokeWidth="1"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          transition={{ duration: 5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+          transition={{ duration: 5 }}
         />
       </svg>
     </div>
@@ -147,8 +167,25 @@ function ArtisticElements() {
 }
 
 function MarineElements() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      // Anime.js para distorção orgânica de ondas no background (simulando água)
+      anime({
+        targets: containerRef.current,
+        translateY: [-10, 10],
+        translateX: [-5, 5],
+        duration: 5000,
+        direction: 'alternate',
+        loop: true,
+        easing: 'easeInOutSine'
+      });
+    }
+  }, []);
+
   return (
-    <div className="absolute inset-0">
+    <div ref={containerRef} className="absolute inset-0">
       {/* Peixinhos passando lentamente */}
       <motion.div
         animate={{

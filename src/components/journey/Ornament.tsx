@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import { useAtmosphere } from "@/hooks/useAtmosphere";
 import { Castle, Bird, Fish, Cloud } from "lucide-react";
+import { useEffect, useRef } from "react";
+import anime from "animejs";
 
 type OrnamentProps = {
   className?: string;
@@ -8,6 +10,22 @@ type OrnamentProps = {
 
 export function Ornament({ className }: OrnamentProps) {
   const { state } = useAtmosphere();
+  const iconRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (iconRef.current) {
+      // Usando anime.js para uma animação de "float" mais orgânica e complexa que o Framer Motion
+      anime({
+        targets: iconRef.current,
+        translateY: [-5, 5],
+        rotate: [-3, 3],
+        duration: 3000,
+        direction: 'alternate',
+        loop: true,
+        easing: 'easeInOutQuad'
+      });
+    }
+  }, [state.theme]);
 
   const getIcon = () => {
     switch (state.theme) {
@@ -42,6 +60,7 @@ export function Ornament({ className }: OrnamentProps) {
 
   return (
     <motion.div
+      ref={iconRef}
       className={className}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}

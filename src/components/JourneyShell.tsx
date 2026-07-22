@@ -1,5 +1,6 @@
 import { AtmosphereProvider } from "@/hooks/useAtmosphere";
 import { AtmosphereElements } from "./journey/AtmosphereElements";
+import { GlobalScene3D } from "./journey/GlobalScene3D";
 import type { ReactNode } from "react";
 
 /**
@@ -11,6 +12,7 @@ export function JourneyShell({ children }: { children: ReactNode }) {
   return (
     <AtmosphereProvider>
       <div className="min-h-screen w-full bg-bg-primary text-text-primary transition-colors duration-[1500ms] ease-cinema">
+        <GlobalScene3D />
         <AtmosphereElements />
         <main
           className="relative mx-auto w-full max-w-[480px] snap-y snap-mandatory z-10"
