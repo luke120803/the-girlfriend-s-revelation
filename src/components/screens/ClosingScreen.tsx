@@ -6,6 +6,7 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "../ui/button";
 import { Ornament } from "../journey/Ornament";
 import { useParallax } from "@/hooks/useParallax";
+import { Heart } from "lucide-react";
 
 export function ClosingScreen() {
   const { triggerRef, targetRef } = useParallax(0.2);
@@ -42,7 +43,10 @@ export function ClosingScreen() {
           </p>
         </Reveal>
         <Reveal delay={1.0} className="mt-10">
-          <PulsingHeart />
+          <div className="relative">
+            <Heart size={32} className="text-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 animate-ping" />
+            <PulsingHeart />
+          </div>
         </Reveal>
         <Reveal delay={1.2} className="mt-12">
           <Link to="/hub">

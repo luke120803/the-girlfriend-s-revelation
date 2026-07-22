@@ -3,6 +3,7 @@ import { ScreenSection } from "../journey/ScreenSection";
 import { COVER, HER } from "@/content/copy";
 import { EASE_CINEMA } from "@/lib/motion";
 import { AnimatedText } from "../journey/AnimatedText";
+import { Cloud } from "lucide-react";
 
 /**
  * Tela 1 — Capa / Ato 1: Expectativa.
@@ -68,7 +69,7 @@ export function CoverScreen({ onAdvance }: { onAdvance: () => void }) {
           transition={{ duration: 0.9, ease: EASE_CINEMA, delay: 0.5 }}
           className="flex items-center gap-3 pl-1"
         >
-          <span className="h-px w-8 bg-accent" />
+          <Cloud className="w-4 h-4 text-accent" strokeWidth={1} />
           <span className="text-[10px] tracking-[0.4em] uppercase text-accent-dark">
             para {HER.name.toLowerCase()}
           </span>

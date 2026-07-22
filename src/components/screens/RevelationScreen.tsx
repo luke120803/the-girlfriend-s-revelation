@@ -3,6 +3,7 @@ import { ScreenSection } from "../journey/ScreenSection";
 import { AdvanceButton } from "../journey/AdvanceButton";
 import { Reveal } from "../Reveal";
 import { FlippableCard } from "../journey/FlippableCard";
+import { Castle } from "lucide-react";
 
 /**
  * Ato II — Descoberta. Estrutura com cards 3D que revelam conteúdo.
@@ -37,9 +38,12 @@ export function RevelationScreen({ onAdvance }: { onAdvance: () => void }) {
   return (
     <ScreenSection id="ato-2" theme="classic">
       <Reveal>
-        <span className="text-xs tracking-[0.35em] uppercase text-accent">
-          Ato II · Descoberta
-        </span>
+        <div className="flex items-center gap-3">
+          <Castle size={16} className="text-accent" strokeWidth={1.5} />
+          <span className="text-xs tracking-[0.35em] uppercase text-accent">
+            Ato II · Descoberta
+          </span>
+        </div>
       </Reveal>
       <Reveal delay={0.15}>
         <h2 className="font-display mt-4 text-[clamp(2rem,7vw,2.5rem)] leading-[1.1] text-text-primary">

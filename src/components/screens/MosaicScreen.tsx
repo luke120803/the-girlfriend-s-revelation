@@ -3,6 +3,7 @@ import { ScreenSection } from "../journey/ScreenSection";
 import { AdvanceButton } from "../journey/AdvanceButton";
 import { motion } from "motion/react";
 import { VideoCard } from "../journey/VideoCard";
+import { Bird } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -41,9 +42,12 @@ export function MosaicScreen({ onAdvance }: { onAdvance: () => void }) {
   return (
     <ScreenSection id="ato-3" theme="artistic">
       <motion.div initial="hidden" animate="visible" variants={containerVariants}>
-        <motion.span variants={itemVariants} className="text-xs tracking-[0.35em] uppercase text-accent">
-          Ato III · Conexão
-        </motion.span>
+        <motion.div variants={itemVariants} className="flex items-center gap-3">
+          <Bird size={16} className="text-accent" strokeWidth={1.5} />
+          <span className="text-xs tracking-[0.35em] uppercase text-accent">
+            Ato III · Conexão
+          </span>
+        </motion.div>
         <motion.h2
           variants={itemVariants}
           className="font-display mt-4 text-[clamp(2rem,7vw,2.5rem)] leading-[1.1] text-text-primary"

@@ -5,6 +5,7 @@ import { Reveal } from "../Reveal";
 import { Typewriter } from "../journey/Typewriter";
 import { LETTER } from "@/content/copy";
 import confetti from "canvas-confetti";
+import { Fish } from "lucide-react";
 
 /**
  * Ato IV — Clímax (Carta). Efeito de digitação e confetti.
@@ -24,9 +25,12 @@ export function LetterScreen({ onAdvance }: { onAdvance: () => void }) {
   return (
     <ScreenSection id="ato-4" theme="marine">
       <Reveal>
-        <span className="text-xs tracking-[0.35em] uppercase text-accent">
-          Ato IV · Clímax
-        </span>
+        <div className="flex items-center gap-3">
+          <Fish size={16} className="text-accent" strokeWidth={1.5} />
+          <span className="text-xs tracking-[0.35em] uppercase text-accent">
+            Ato IV · Clímax
+          </span>
+        </div>
       </Reveal>
       <Reveal delay={0.15}>
         <h2 className="font-display mt-4 text-[clamp(2rem,7vw,2.5rem)] leading-[1.1] text-text-primary">
