@@ -12,7 +12,7 @@ import { AnimatedText } from "../journey/AnimatedText";
  */
 export function CoverScreen({ onAdvance }: { onAdvance: () => void }) {
   return (
-    <ScreenSection id="capa" className="overflow-hidden">
+    <ScreenSection id="capa" className="overflow-hidden" theme="ballet">
       {/* Grão sutil sobre toda a tela */}
       <div
         aria-hidden
@@ -26,7 +26,7 @@ export function CoverScreen({ onAdvance }: { onAdvance: () => void }) {
       {/* Vinheta quente */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 transition-opacity duration-1000"
         style={{
           background:
             "radial-gradient(ellipse at 50% 30%, transparent 40%, color-mix(in oklab, var(--accent-dark) 10%, transparent) 100%)",

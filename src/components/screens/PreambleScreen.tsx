@@ -1,12 +1,11 @@
 import { ScreenSection } from "../journey/ScreenSection";
 import { Reveal } from "../Reveal";
 import { PREAMBLE } from "@/content/copy";
-import { AnimatedWords } from "../journey/AnimatedWords";
 import { ArrowRight } from "lucide-react";
 
 export function PreambleScreen({ onAdvance }: { onAdvance: () => void }) {
   return (
-    <ScreenSection id="preambulo">
+    <ScreenSection id="preambulo" theme="ballet">
       <div className="flex w-full flex-col items-start text-left">
         <Reveal>
           <span className="text-xs tracking-[0.35em] uppercase text-accent">
@@ -14,11 +13,11 @@ export function PreambleScreen({ onAdvance }: { onAdvance: () => void }) {
           </span>
         </Reveal>
         
-        <AnimatedWords
-          text={PREAMBLE.body}
-          delay={0.15}
-          className="font-display mt-6 text-[clamp(1.5rem,5.5vw,2rem)] leading-[1.25] text-text-primary"
-        />
+        <Reveal delay={0.15} variant="title">
+          <p className="font-display mt-6 text-[clamp(1.5rem,5.5vw,2rem)] leading-[1.25] text-text-primary">
+            {PREAMBLE.body}
+          </p>
+        </Reveal>
 
         <Reveal delay={0.4} className="mt-12 self-center">
           <button

@@ -5,14 +5,19 @@ import { PulsingHeart } from "../journey/PulsingHeart";
 import { Link } from "@tanstack/react-router";
 import { Button } from "../ui/button";
 import { Ornament } from "../journey/Ornament";
+import { useParallax } from "@/hooks/useParallax";
 
 export function ClosingScreen() {
+  const { triggerRef, targetRef } = useParallax(0.2);
+
   return (
-    <ScreenSection id="encerramento">
+    <ScreenSection id="encerramento" theme="marine">
       <div className="flex w-full flex-col items-center text-center">
-        <Reveal>
-          <Ornament className="text-accent-dark/50" />
-        </Reveal>
+        <div ref={targetRef}>
+          <Reveal>
+            <Ornament className="text-accent-dark/50" />
+          </Reveal>
+        </div>
         <Reveal delay={0.2}>
           <p className="font-hand text-lg text-text-secondary mt-4">
             com carinho,

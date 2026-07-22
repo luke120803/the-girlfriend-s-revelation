@@ -35,7 +35,7 @@ export function RevelationScreen({ onAdvance }: { onAdvance: () => void }) {
   ];
 
   return (
-    <ScreenSection id="ato-2">
+    <ScreenSection id="ato-2" theme="classic">
       <Reveal>
         <span className="text-xs tracking-[0.35em] uppercase text-accent">
           Ato II · Descoberta

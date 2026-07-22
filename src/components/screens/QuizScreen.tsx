@@ -28,7 +28,7 @@ export function QuizScreen({ onAdvance }: QuizScreenProps) {
   };
 
   return (
-    <ScreenSection id="quiz">
+    <ScreenSection id="quiz" theme="artistic">
       <AnimatePresence>
         {!isQuizComplete ? (
           <motion.div

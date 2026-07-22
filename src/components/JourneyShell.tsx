@@ -1,3 +1,5 @@
+import { AtmosphereProvider } from "@/hooks/useAtmosphere";
+import { AtmosphereElements } from "./journey/AtmosphereElements";
 import type { ReactNode } from "react";
 
 /**
@@ -7,13 +9,16 @@ import type { ReactNode } from "react";
  */
 export function JourneyShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen w-full bg-bg-primary text-text-primary">
-      <main
-        className="relative mx-auto w-full max-w-[480px] snap-y snap-mandatory"
-        style={{ scrollBehavior: "smooth" }}
-      >
-        {children}
-      </main>
-    </div>
+    <AtmosphereProvider>
+      <div className="min-h-screen w-full bg-bg-primary text-text-primary transition-colors duration-[1500ms] ease-cinema">
+        <AtmosphereElements />
+        <main
+          className="relative mx-auto w-full max-w-[480px] snap-y snap-mandatory z-10"
+          style={{ scrollBehavior: "smooth" }}
+        >
+          {children}
+        </main>
+      </div>
+    </AtmosphereProvider>
   );
 }

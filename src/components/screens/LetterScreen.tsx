@@ -22,7 +22,7 @@ export function LetterScreen({ onAdvance }: { onAdvance: () => void }) {
   };
 
   return (
-    <ScreenSection id="ato-4">
+    <ScreenSection id="ato-4" theme="marine">
       <Reveal>
         <span className="text-xs tracking-[0.35em] uppercase text-accent">
           Ato IV · Clímax

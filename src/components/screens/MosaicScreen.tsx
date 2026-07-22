@@ -1,8 +1,23 @@
 import { useState } from "react";
 import { ScreenSection } from "../journey/ScreenSection";
 import { AdvanceButton } from "../journey/AdvanceButton";
-import { Reveal } from "../Reveal";
+import { motion } from "motion/react";
 import { VideoCard } from "../journey/VideoCard";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
 
 /**
  * Ato III — Conexão. Mosaico assimétrico de vídeos.
@@ -24,32 +39,39 @@ export function MosaicScreen({ onAdvance }: { onAdvance: () => void }) {
   ];
 
   return (
-    <ScreenSection id="ato-3" className="bg-bg-secondary">
-      <Reveal>
-        <span className="text-xs tracking-[0.35em] uppercase text-accent">
+    <ScreenSection id="ato-3" theme="artistic">
+      <motion.div initial="hidden" animate="visible" variants={containerVariants}>
+        <motion.span variants={itemVariants} className="text-xs tracking-[0.35em] uppercase text-accent">
           Ato III · Conexão
-        </span>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <h2 className="font-display mt-4 text-[clamp(2rem,7vw,2.5rem)] leading-[1.1] text-text-primary">
+        </motion.span>
+        <motion.h2
+          variants={itemVariants}
+          className="font-display mt-4 text-[clamp(2rem,7vw,2.5rem)] leading-[1.1] text-text-primary"
+        >
           As pessoas<br />
           <span className="italic text-accent-dark">que te escolheram.</span>
-        </h2>
-      </Reveal>
+        </motion.h2>
+      </motion.div>
 
-      <div className="mt-10 grid w-full grid-cols-3 gap-3">
+      <motion.div
+        className="mt-10 grid w-full grid-cols-3 gap-3"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={containerVariants}
+      >
         {videos.map((video, index) => (
-          <Reveal key={index} delay={0.3 + index * 0.1} className={video.className}>
+          <motion.div key={index} variants={itemVariants} className={video.className}>
             <VideoCard
               thumbnail={video.thumbnail}
               videoUrl={video.videoUrl}
               onVideoPlay={handleVideoPlay}
             />
-          </Reveal>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      <Reveal delay={0.5} className="mt-12">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-12">
         <AdvanceButton
           variant="ghost"
           onClick={onAdvance}
@@ -57,7 +79,7 @@ export function MosaicScreen({ onAdvance }: { onAdvance: () => void }) {
         >
           Seguir
         </AdvanceButton>
-      </Reveal>
+      </motion.div>
     </ScreenSection>
   );
 }

@@ -1,55 +1,58 @@
-import { useState, useCallback } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import { motion } from "motion/react";
-import { ALBUM_PHOTOS } from "@/content/album";
+import { useState, Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
+import { AlbumModel } from "../album/AlbumModel";
+import { AlbumNavigation } from "../album/AlbumNavigation";
 import { PhotoModal } from "../journey/PhotoModal";
 import { ScreenSection } from "../journey/ScreenSection";
+import { ALBUM_PAGES } from "@/content/album";
+
+type Photo = {
+  id: number;
+  url: string;
+  caption: string;
+};
 
 export function Album3DScreen() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: "center",
-    containScroll: "trimSnaps",
-  });
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
 
-  const openModal = useCallback((photo) => {
-    setSelectedPhoto(photo);
-  }, []);
+  const handleOpenAlbum = () => setIsOpen(true);
+  const handleSelectPhoto = (photo: Photo) => setSelectedPhoto(photo);
+  const handleCloseModal = () => setSelectedPhoto(null);
 
-  const closeModal = useCallback(() => {
-    setSelectedPhoto(null);
-  }, []);
+  const turnPage = (direction: "next" | "prev") => {
+    const newPage = direction === "next" ? currentPage + 1 : currentPage - 1;
+    if (newPage >= 0 && newPage < ALBUM_PAGES.length) {
+      setCurrentPage(newPage);
+    }
+  };
 
   return (
-    <ScreenSection id="album-3d">
-      <div className="w-full h-full flex flex-col items-center justify-center">
-        <h2 className="font-display text-3xl text-text-primary mb-8">Nosso Álbum</h2>
-        <div className="w-full" ref={emblaRef} style={{ perspective: "1000px" }}>
-          <div className="flex">
-            {ALBUM_PHOTOS.map((photo, index) => (
-              <motion.div
-                key={photo.id}
-                className="flex-[0_0_60%] min-w-0 pl-4"
-                onClick={() => openModal(photo)}
-                style={{
-                  transform: `rotateY(${index === emblaApi?.selectedScrollSnap() ? 0 : index < emblaApi?.selectedScrollSnap() ? 20 : -20}deg) scale(${index === emblaApi?.selectedScrollSnap() ? 1 : 0.9})`,
-                  transition: "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-              >
-                <img
-                  src={photo.url}
-                  alt={photo.caption}
-                  className="w-full h-auto object-cover rounded-lg shadow-medium"
-                />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
+    <ScreenSection id="album-3d" theme="marine">
+      <Suspense fallback={<div className="w-full h-full flex items-center justify-center">Carregando Álbum...</div>}>
+        <Canvas camera={{ position: [0, 0, 7], fov: 50 }}>
+          <AlbumModel
+            isOpen={isOpen}
+            currentPage={currentPage}
+            onOpen={handleOpenAlbum}
+            onSelectPhoto={handleSelectPhoto}
+          />
+        </Canvas>
+      </Suspense>
+
+      {isOpen && (
+        <AlbumNavigation
+          onPrev={() => turnPage("prev")}
+          onNext={() => turnPage("next")}
+          isPrevDisabled={currentPage === 0}
+          isNextDisabled={currentPage >= ALBUM_PAGES.length - 1}
+        />
+      )}
+
       <PhotoModal
         isOpen={!!selectedPhoto}
-        onOpenChange={(isOpen) => !isOpen && closeModal()}
+        onOpenChange={(isOpen) => !isOpen && handleCloseModal()}
         photo={selectedPhoto}
       />
     </ScreenSection>

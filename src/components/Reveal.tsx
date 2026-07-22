@@ -1,47 +1,40 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion } from "motion/react";
+import { ReactNode } from "react";
 
-type Props = {
+type RevealProps = {
   children: ReactNode;
-  delay?: number;
   className?: string;
+  delay?: number;
+  variant?: "title" | "text";
 };
 
-/**
- * Fade-in + slide-up quando entra em viewport.
- * Respeita prefers-reduced-motion via CSS global.
- */
-export function Reveal({ children, delay = 0, className = "" }: Props) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
+const variants = {
+  title: {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0 },
+  },
+  text: {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  },
+};
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setVisible(true);
-            io.disconnect();
-            break;
-          }
-        }
-      },
-      { threshold: 0.15 },
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, []);
-
-  const style: React.CSSProperties = {
-    opacity: visible ? 1 : 0,
-    transform: visible ? "translateY(0)" : "translateY(24px)",
-    transition: `opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
-  };
-
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  variant = "text",
+}: RevealProps) {
   return (
-    <div ref={ref} className={className} style={style}>
+    <motion.div
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={variants[variant]}
+      transition={{ duration: 0.8, ease: "easeOut", delay }}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
