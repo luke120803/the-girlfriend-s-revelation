@@ -18,13 +18,12 @@ export function QuizScreen({ onAdvance }: QuizScreenProps) {
     if (isCorrect) {
       setScore(score + 1);
     }
-    setTimeout(() => {
-      if (currentQuestionIndex < QUIZ.questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-      } else {
-        setIsQuizComplete(true);
-      }
-    }, 1500);
+    // O feedback já foi mostrado no QuestionCard, agora avançamos
+    if (currentQuestionIndex < QUIZ.questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      setIsQuizComplete(true);
+    }
   };
 
   return (

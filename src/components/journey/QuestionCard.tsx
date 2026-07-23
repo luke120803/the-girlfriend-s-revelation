@@ -18,13 +18,19 @@ export function QuestionCard({ question, options, answer, feedback, onAnswer }: 
     if (isAnswered) return;
     setSelectedOption(option);
     setIsAnswered(true);
-    onAnswer(option === answer);
+    // O tempo de espera agora é menor para a transição ser mais ágil
+    setTimeout(() => {
+      onAnswer(option === answer);
+    }, 1500); // Dá um tempo curto para ver a cor do botão antes de passar para o feedback
   };
 
   return (
-    <div className="w-full max-w-md p-6 bg-bg-card rounded-lg shadow-soft">
-      <p className="text-lg font-display text-text-primary">{question}</p>
-      <div className="mt-6 space-y-3">
+    <div className="w-full max-w-md p-8 bg-bg-card/40 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden group">
+      {/* Elemento decorativo sutil */}
+      <div className="absolute -top-24 -right-24 w-48 h-48 bg-accent/10 rounded-full blur-3xl group-hover:bg-accent/20 transition-colors duration-1000" />
+      
+      <p className="text-xl font-display text-text-primary leading-tight relative z-10">{question}</p>
+      <div className="mt-8 space-y-4 relative z-10">
         {options.map((option) => (
           <Button
             key={option}
@@ -37,21 +43,26 @@ export function QuestionCard({ question, options, answer, feedback, onAnswer }: 
                   : "outline"
                 : "outline"
             }
-            className="w-full justify-start text-left"
+            className={`w-full justify-start text-left h-auto py-5 px-6 rounded-2xl transition-all duration-500 border-white/5 ${
+              !isAnswered ? 'hover:scale-[1.02] hover:bg-white/5 active:scale-95' : ''
+            } ${isAnswered && option === answer ? 'ring-2 ring-success/50' : ''}`}
             onClick={() => handleAnswer(option)}
             disabled={isAnswered}
           >
-            {option}
+            <span className="text-base font-sans tracking-wide">{option}</span>
           </Button>
         ))}
       </div>
       {isAnswered && (
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-6 text-center text-sm text-text-secondary"
+          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: "spring", stiffness: 100, damping: 20 }}
+          className="mt-8 p-6 rounded-2xl bg-accent/5 border border-accent/10 text-center relative z-10"
         >
-          {feedback}
+          <p className="text-sm italic text-text-primary leading-relaxed">
+            {feedback}
+          </p>
         </motion.div>
       )}
     </div>

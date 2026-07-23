@@ -10,7 +10,7 @@ import { Castle } from "lucide-react";
  */
 export function RevelationScreen({ onAdvance }: { onAdvance: () => void }) {
   const [flippedCards, setFlippedCards] = useState(0);
-  const allCardsFlipped = flippedCards === 4;
+  const allCardsFlipped = flippedCards >= 4;
 
   const handleCardFlip = () => {
     setFlippedCards((count) => count + 1);
@@ -36,7 +36,7 @@ export function RevelationScreen({ onAdvance }: { onAdvance: () => void }) {
   ];
 
   return (
-    <ScreenSection id="ato-2" theme="classic">
+    <ScreenSection id="revelacao" theme="classic">
       <Reveal>
         <div className="flex items-center gap-3">
           <Castle size={16} className="text-accent" strokeWidth={1.5} />

@@ -25,7 +25,7 @@ const itemVariants = {
  */
 export function MosaicScreen({ onAdvance }: { onAdvance: () => void }) {
   const [watchedVideos, setWatchedVideos] = useState(0);
-  const allVideosWatched = watchedVideos === 5;
+  const allVideosWatched = watchedVideos >= 5;
 
   const handleVideoPlay = () => {
     setWatchedVideos((count) => count + 1);
@@ -40,7 +40,7 @@ export function MosaicScreen({ onAdvance }: { onAdvance: () => void }) {
   ];
 
   return (
-    <ScreenSection id="ato-3" theme="artistic">
+    <ScreenSection id="mosaico" theme="artistic">
       <motion.div initial="hidden" animate="visible" variants={containerVariants}>
         <motion.div variants={itemVariants} className="flex items-center gap-3">
           <Bird size={16} className="text-accent" strokeWidth={1.5} />

@@ -23,7 +23,7 @@ export function LetterScreen({ onAdvance }: { onAdvance: () => void }) {
   };
 
   return (
-    <ScreenSection id="ato-4" theme="marine">
+    <ScreenSection id="carta" theme="marine">
       <Reveal>
         <div className="flex items-center gap-3">
           <Fish size={16} className="text-accent" strokeWidth={1.5} />

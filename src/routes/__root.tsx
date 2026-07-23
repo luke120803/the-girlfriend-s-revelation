@@ -8,6 +8,8 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { AtmosphereProvider } from "@/hooks/useAtmosphere";
+import { GlobalScene3D } from "@/components/journey/GlobalScene3D";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -115,7 +117,12 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <AtmosphereProvider>
+          <GlobalScene3D />
+          <div className="relative min-h-screen w-full overflow-x-hidden">
+            {children}
+          </div>
+        </AtmosphereProvider>
         <Scripts />
       </body>
     </html>
@@ -127,7 +134,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <SoundToggle />
     </QueryClientProvider>

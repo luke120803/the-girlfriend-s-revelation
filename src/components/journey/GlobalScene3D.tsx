@@ -1,19 +1,36 @@
-import { useRef, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef, useMemo, Component, ReactNode } from "react";
+import { Canvas } from "@react-three/fiber";
 import { Float, Sphere, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useAtmosphere } from "@/hooks/useAtmosphere";
+
+class SceneErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return null; // Silenciosamente falha para o fundo original
+    }
+    return this.props.children;
+  }
+}
 
 function FloatingShapes() {
   const { state } = useAtmosphere();
   const meshRef = useRef<THREE.Mesh>(null);
 
-  // Define a cor baseada no tema
   const color = useMemo(() => {
     switch (state.theme) {
       case "ballet": return "#fcf9f7";
       case "classic": return "#f5e6d3";
-      case "artistic": return "#d97706"; // terracotta-ish
+      case "artistic": return "#d97706";
       case "marine": return "#0c4a6e";
       default: return "#fcf9f7";
     }
@@ -33,6 +50,7 @@ function FloatingShapes() {
           opacity={0.08}
           transparent
           roughness={0}
+          attach="material"
         />
       </Sphere>
     </Float>
@@ -42,11 +60,13 @@ function FloatingShapes() {
 export function GlobalScene3D() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 opacity-40">
-      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <FloatingShapes />
-      </Canvas>
+      <SceneErrorBoundary>
+        <Canvas camera={{ position: [0, 0, 5], fov: 75 }} gl={{ antialias: true }}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} />
+          <FloatingShapes />
+        </Canvas>
+      </SceneErrorBoundary>
     </div>
   );
 }
