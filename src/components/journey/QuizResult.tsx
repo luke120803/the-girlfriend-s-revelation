@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { Button } from "@/components/ui/button";
 import { QUIZ } from "@/content/copy";
 
 type QuizResultProps = {
@@ -18,24 +17,33 @@ export function QuizResult({ score, total, onAdvance }: QuizResultProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="w-full max-w-md p-10 text-center bg-bg-card/30 backdrop-blur-xl rounded-3xl border border-accent/20 shadow-2xl"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full max-w-sm px-8 py-10 text-center"
     >
-      <div className="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-accent/20 text-accent text-3xl font-display">
-        {score}/{total}
-      </div>
-      <h3 className="text-3xl font-display text-text-primary leading-tight">{QUIZ.result.title}</h3>
-      <p className="mt-6 text-lg text-text-secondary italic font-serif leading-relaxed">
+      <p className="text-text-muted text-xs uppercase tracking-[0.25em] font-body mb-6">
+        {score} de {total}
+      </p>
+      <h3
+        className="font-display text-text-primary leading-tight"
+        style={{ fontSize: "clamp(1.5rem, 4vw, 2rem)" }}
+      >
+        {QUIZ.result.title}
+      </h3>
+      <p className="mt-5 text-text-secondary font-handwritten italic leading-relaxed text-lg">
         {getResultMessage()}
       </p>
-      <Button 
-        onClick={onAdvance} 
-        size="lg"
-        className="mt-10 w-full py-6 text-lg rounded-xl bg-accent hover:bg-accent-dark transition-all duration-500 hover:tracking-widest"
+      <p className="mt-6 text-text-muted text-sm font-body leading-relaxed">
+        Agora, algumas memórias que guardei com cuidado.
+      </p>
+      <button
+        onClick={onAdvance}
+        className="mt-10 w-full py-4 bg-accent text-[#FDF8F3] text-sm uppercase tracking-[0.2em] font-body transition-all duration-400 hover:bg-accent-dark active:scale-95"
+        style={{ borderRadius: 0 }}
       >
         {QUIZ.result.cta}
-      </Button>
+      </button>
     </motion.div>
   );
 }

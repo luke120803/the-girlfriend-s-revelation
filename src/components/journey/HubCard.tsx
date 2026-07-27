@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 type HubCardProps = {
   item: {
@@ -9,6 +9,7 @@ type HubCardProps = {
     description: string;
     link: string;
     disabled?: boolean;
+    links?: { label: string; url: string }[];
   };
 };
 
@@ -36,6 +37,33 @@ export function HubCard({ item }: HubCardProps) {
       )}
     </motion.div>
   );
+
+  if (item.links && item.links.length > 0) {
+    return (
+      <motion.div
+        className="w-full p-6 bg-bg-card rounded-lg shadow-soft text-left"
+        transition={{ duration: 0.3 }}
+      >
+        <h3 className="font-display text-xl text-text-primary">{item.title}</h3>
+        <p className="mt-2 text-sm text-text-secondary">{item.description}</p>
+        <div className="mt-4 flex flex-col gap-2">
+          {item.links.map((l) => (
+            <a
+              key={l.url}
+              href={l.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between px-4 py-3 border border-text-primary/10 text-text-secondary text-sm font-body transition-all hover:border-accent hover:text-accent active:scale-95"
+              style={{ borderRadius: 0 }}
+            >
+              {l.label}
+              <ExternalLink size={14} className="ml-2 shrink-0" />
+            </a>
+          ))}
+        </div>
+      </motion.div>
+    );
+  }
 
   return item.disabled ? (
     <div>{cardContent}</div>

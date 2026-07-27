@@ -1,39 +1,55 @@
 export const ALBUM_PAGES = [
   {
     photos: [
-      {
-        id: 1,
-        url: "https://picsum.photos/seed/album1/800/1200",
-        caption: "O dia em que nos perdemos e encontramos o melhor café da cidade.",
-      },
-      {
-        id: 2,
-        url: "https://picsum.photos/seed/album2/800/1200",
-        caption: "Nossa primeira viagem juntos, lembra desse pôr do sol?",
-      },
+      { id: 1, url: "/images/foto-01.webp", caption: "" },
+      { id: 2, url: "/images/foto-02.webp", caption: "" },
     ],
   },
   {
     photos: [
-      {
-        id: 3,
-        url: "https://picsum.photos/seed/album3/800/1200",
-        caption: "Aquele show inesquecível.",
-      },
-      {
-        id: 4,
-        url: "https://picsum.photos/seed/album4/800/1200",
-        caption: "Um dia qualquer, mas perfeito.",
-      },
+      { id: 3, url: "/images/foto-03.webp", caption: "" },
+      { id: 4, url: "/images/foto-04.webp", caption: "" },
     ],
   },
   {
     photos: [
-      {
-        id: 5,
-        url: "https://picsum.photos/seed/album5/800/1200",
-        caption: "Celebrando mais um ano ao seu lado.",
-      },
+      { id: 5, url: "/images/foto-05.webp", caption: "" },
+      { id: 6, url: "/images/foto-06.webp", caption: "" },
+    ],
+  },
+  {
+    photos: [
+      { id: 7, url: "/images/foto-07.webp", caption: "" },
+      { id: 8, url: "/images/foto-08.webp", caption: "" },
+    ],
+  },
+  {
+    photos: [
+      { id: 9, url: "/images/foto-09.webp", caption: "" },
+      { id: 10, url: "/images/foto-10.webp", caption: "" },
+    ],
+  },
+  {
+    photos: [
+      { id: 11, url: "/images/foto-11.webp", caption: "" },
+      { id: 12, url: "/images/foto-12.webp", caption: "" },
+    ],
+  },
+  {
+    photos: [
+      { id: 13, url: "/images/foto-13.webp", caption: "" },
+      { id: 14, url: "/images/foto-14.webp", caption: "" },
+    ],
+  },
+  {
+    photos: [
+      { id: 15, url: "/images/foto-15.webp", caption: "" },
+      { id: 16, url: "/images/foto-16.webp", caption: "" },
+    ],
+  },
+  {
+    photos: [
+      { id: 17, url: "/images/foto-17.webp", caption: "" },
     ],
   },
 ];

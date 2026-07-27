@@ -123,6 +123,16 @@ For emotional, personal, tribute, memory, or romantic projects:
 - avoid generic “photo + message + countdown + friends section” structures
 - prefer emotionally sequenced screens
 
+## This project: Minnie's birthday experience
+When applying this skill to this project specifically:
+- Palette: `#FDF8F3` background, `#2A2118` text, `#C4785A` terracotta accent — no other colors
+- Fonts: Clash Display (titles), Satoshi (body), Boska italic (quotes, emotional moments)
+- Asymmetry is intentional: prefer 2+1 or 1+2 compositions over symmetric grids
+- Shadows use `rgba(42, 33, 24, …)` — never pure black
+- Border-radius variation: 0px buttons / 8px cards / 24px modals
+- Every screen has one emotional job — do not mix acts or emotional tones
+- The experience is narrative-first: each refinement must serve the story, not just look better
+
 ## Context adaptation
 If the user has preferences or project history, use them.
 Take into account:

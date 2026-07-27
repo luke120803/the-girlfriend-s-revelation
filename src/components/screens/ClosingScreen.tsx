@@ -2,11 +2,9 @@ import { ScreenSection } from "../journey/ScreenSection";
 import { Reveal } from "../Reveal";
 import { HER } from "@/content/copy";
 import { PulsingHeart } from "../journey/PulsingHeart";
-import { Link } from "@tanstack/react-router";
-import { Button } from "../ui/button";
 import { Ornament } from "../journey/Ornament";
 import { useParallax } from "@/hooks/useParallax";
-import { Heart } from "lucide-react";
+import { Heart, ExternalLink } from "lucide-react";
 
 export function ClosingScreen() {
   const { triggerRef, targetRef } = useParallax(0.2);
@@ -48,10 +46,30 @@ export function ClosingScreen() {
             <PulsingHeart />
           </div>
         </Reveal>
-        <Reveal delay={1.2} className="mt-12">
-          <Link to="/hub">
-            <Button variant="outline">Explorar mais memórias</Button>
-          </Link>
+        <Reveal delay={1.2} className="mt-12 w-full max-w-xs">
+          <p className="text-xs tracking-[0.3em] uppercase text-text-muted mb-4">homenagens anteriores</p>
+          <div className="flex flex-col gap-2">
+            <a
+              href="https://cantinho-da-minnie.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between px-4 py-3 border border-text-primary/10 text-text-secondary text-sm transition-all hover:border-accent hover:text-accent active:scale-95"
+              style={{ borderRadius: 0 }}
+            >
+              Cantinho da Minnie
+              <ExternalLink size={14} className="ml-2 shrink-0" />
+            </a>
+            <a
+              href="https://surpresaminnie.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between px-4 py-3 border border-text-primary/10 text-text-secondary text-sm transition-all hover:border-accent hover:text-accent active:scale-95"
+              style={{ borderRadius: 0 }}
+            >
+              Surpresa Minnie
+              <ExternalLink size={14} className="ml-2 shrink-0" />
+            </a>
+          </div>
         </Reveal>
       </div>
     </ScreenSection>

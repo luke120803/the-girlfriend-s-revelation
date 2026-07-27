@@ -51,11 +51,30 @@ Use it whenever building or refining interfaces that must feel polished, intimat
 - Motion should support clarity, not distract from content.
 
 ## Mobile interaction quality
-- Touch targets should be easy to hit.
+- Touch targets should be easy to hit (minimum 44px).
 - Important actions should stay within natural thumb reach.
 - Motion must remain understandable on small screens.
 - Do not rely on hover for meaning.
 - Maintain visual stability while interacting.
+- Account for iOS safe areas: notch, home indicator, and dynamic island.
+- Use `env(safe-area-inset-*)` for bottom-fixed elements.
+
+## Accessibility
+- All text must meet WCAG AA contrast ratio (4.5:1 for body, 3:1 for large text).
+- Focus states must be visible and styled — never remove outlines without a replacement.
+- Respect `prefers-reduced-motion`: disable or simplify all animations when active.
+- Use semantic HTML elements (`<button>`, `<nav>`, `<main>`, `<section>`).
+- Interactive elements must be keyboard-navigable.
+- Do not convey meaning through color alone.
+
+## Performance mobile
+- Keep total page weight under 1.5MB.
+- Target LCP under 2 seconds on a mid-range mobile device.
+- Use WebP for all images with correct sizing.
+- Load fonts with `font-display: swap`.
+- Lazy-load images below the fold.
+- Avoid layout shifts (CLS) during font loading.
+- Minimize render-blocking resources.
 
 ## Anti-patterns
 Avoid:

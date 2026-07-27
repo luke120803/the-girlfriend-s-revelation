@@ -12,17 +12,13 @@ export const HUB_ITEMS = [
     link: "/album",
   },
   {
-    id: "minigame",
-    title: "Mini-Game (Em Breve)",
-    description: "Um joguinho para nos divertirmos juntos.",
-    link: "#",
-    disabled: true,
-  },
-  {
     id: "homenagens",
     title: "Homenagens Anteriores",
     description: "Relembre outras surpresas que preparei para você.",
     link: "#",
-    disabled: true,
+    links: [
+      { label: "Cantinho da Minnie", url: "https://cantinho-da-minnie.netlify.app/" },
+      { label: "Surpresa Minnie", url: "https://surpresaminnie.netlify.app/" },
+    ],
   },
 ];

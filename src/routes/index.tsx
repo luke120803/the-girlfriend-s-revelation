@@ -38,7 +38,7 @@ function Index() {
         <PreambleScreen onAdvance={() => scrollTo("revelacao")} />
         <RevelationScreen onAdvance={() => scrollTo("quiz")} />
         <QuizScreen onAdvance={() => scrollTo("album-3d")} />
-        <AlbumCinematicScreen />
+        <AlbumCinematicScreen onAdvance={() => scrollTo("mosaico")} />
         <MosaicScreen onAdvance={() => scrollTo("carta")} />
         <LetterScreen onAdvance={() => scrollTo("encerramento")} />
         <ClosingScreen />

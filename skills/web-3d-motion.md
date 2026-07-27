@@ -92,6 +92,19 @@ For a 3D album:
 - tapping a photo can move into a focused viewing mode
 - structure should support future expansion
 
+## Reduced motion fallback
+- When `prefers-reduced-motion` is active, replace 3D flips with simple fade transitions.
+- The album should still open and reveal content — just without spatial animation.
+- Never hide content behind motion that cannot be bypassed.
+- Use `@media (prefers-reduced-motion: reduce)` in CSS and check `window.matchMedia` in JS before triggering anime.js sequences.
+- Provide a static fallback state for every 3D interaction.
+
+## Loading state
+- The 3D object should not appear broken or invisible while assets load.
+- Show a minimal placeholder (e.g., closed cover with opacity) until the scene is ready.
+- Avoid layout shifts when the 3D object initializes.
+- If fonts or images are part of the 3D surface, wait for them before triggering the opening sequence.
+
 ## Performance rules
 - Avoid unnecessary real-time effects
 - Prefer transform and opacity over layout-heavy animation
