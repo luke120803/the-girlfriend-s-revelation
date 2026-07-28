@@ -1,11 +1,11 @@
-import { useRef, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Image, Text } from '@react-three/drei';
-import * as THREE from 'three';
-import anime from 'animejs';
-import { ALBUM_PAGES } from '@/content/album';
+import { useRef, useEffect } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Image, Text } from "@react-three/drei";
+import * as THREE from "three";
+import anime from "animejs";
+import { ALBUM_PAGES } from "@/content/album";
 
-const COVER_COLOR = '#7f1d1d'; // accent-dark
+const COVER_COLOR = "#7f1d1d"; // accent-dark
 
 interface Photo {
   id: number;
@@ -20,7 +20,12 @@ interface AlbumModelProps {
   onSelectPhoto: (photo: Photo) => void;
 }
 
-export function AlbumModel({ isOpen, currentPage, onOpen, onSelectPhoto }: AlbumModelProps) {
+export function AlbumModel({
+  isOpen,
+  currentPage,
+  onOpen,
+  onSelectPhoto,
+}: AlbumModelProps) {
   const coverRef = useRef<THREE.Group>(null);
   const pagesRef = useRef<THREE.Group[]>([]);
 
@@ -35,7 +40,7 @@ export function AlbumModel({ isOpen, currentPage, onOpen, onSelectPhoto }: Album
         targets: coverRef.current.rotation,
         y: -Math.PI,
         duration: 1200,
-        easing: 'easeInOutSine',
+        easing: "easeInOutSine",
       });
     }
   }, [isOpen]);
@@ -48,7 +53,7 @@ export function AlbumModel({ isOpen, currentPage, onOpen, onSelectPhoto }: Album
           targets: page.rotation,
           y: index < currentPage ? -Math.PI + 0.01 * index : 0, // Pequeno offset para evitar Z-fighting
           duration: 1200,
-          easing: 'easeInOutSine',
+          easing: "easeInOutSine",
         });
       }
     });
@@ -60,18 +65,22 @@ export function AlbumModel({ isOpen, currentPage, onOpen, onSelectPhoto }: Album
       <directionalLight position={[5, 5, 5]} intensity={0.5} />
 
       {/* Capa */}
-      <group 
-        ref={coverRef} 
+      <group
+        ref={coverRef}
         onClick={onOpen}
-        onPointerOver={() => { document.body.style.cursor = 'pointer' }}
-        onPointerOut={() => { document.body.style.cursor = 'auto' }}
+        onPointerOver={() => {
+          document.body.style.cursor = "pointer";
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = "auto";
+        }}
       >
         <mesh>
           <boxGeometry args={[3, 4.5, 0.1]} />
-          <meshStandardMaterial 
-            color={COVER_COLOR} 
-            roughness={0.3} 
-            metalness={0.2} 
+          <meshStandardMaterial
+            color={COVER_COLOR}
+            roughness={0.3}
+            metalness={0.2}
             attach="material"
           />
         </mesh>
@@ -89,15 +98,30 @@ export function AlbumModel({ isOpen, currentPage, onOpen, onSelectPhoto }: Album
 
       {/* Páginas */}
       {ALBUM_PAGES.map((page, pageIndex) => (
-        <group key={pageIndex} ref={(el) => (pagesRef.current[pageIndex] = el!)} position={[0, 0, -0.02 * pageIndex]}>
+        <group
+          key={pageIndex}
+          ref={(el) => (pagesRef.current[pageIndex] = el!)}
+          position={[0, 0, -0.02 * pageIndex]}
+        >
           <mesh>
             <boxGeometry args={[2.9, 4.4, 0.05]} />
-            <meshStandardMaterial color="#fffcf9" roughness={0.8} attach="material" />
+            <meshStandardMaterial
+              color="#fffcf9"
+              roughness={0.8}
+              attach="material"
+            />
           </mesh>
           {page.photos.map((photo, photoIndex) => {
-             const isLeftPage = photoIndex % 2 === 0;
-             return (
-              <group key={photo.id} position={[isLeftPage ? -0.7 : 0.7, photoIndex < 2 ? 1 : -1, 0.03]}>
+            const isLeftPage = photoIndex % 2 === 0;
+            return (
+              <group
+                key={photo.id}
+                position={[
+                  isLeftPage ? -0.7 : 0.7,
+                  photoIndex < 2 ? 1 : -1,
+                  0.03,
+                ]}
+              >
                 <Image
                   url={photo.url}
                   scale={[1.2, 1.6, 1]}
@@ -105,8 +129,12 @@ export function AlbumModel({ isOpen, currentPage, onOpen, onSelectPhoto }: Album
                     e.stopPropagation();
                     onSelectPhoto(photo);
                   }}
-                  onPointerOver={() => { document.body.style.cursor = 'pointer' }}
-                  onPointerOut={() => { document.body.style.cursor = 'auto' }}
+                  onPointerOver={() => {
+                    document.body.style.cursor = "pointer";
+                  }}
+                  onPointerOut={() => {
+                    document.body.style.cursor = "auto";
+                  }}
                   transparent
                   opacity={1}
                 />
