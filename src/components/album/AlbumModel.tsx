@@ -7,7 +7,20 @@ import { ALBUM_PAGES } from '@/content/album';
 
 const COVER_COLOR = '#7f1d1d'; // accent-dark
 
-export function AlbumModel({ isOpen, currentPage, onOpen, onSelectPhoto }) {
+interface Photo {
+  id: number;
+  url: string;
+  caption: string;
+}
+
+interface AlbumModelProps {
+  isOpen: boolean;
+  currentPage: number;
+  onOpen: () => void;
+  onSelectPhoto: (photo: Photo) => void;
+}
+
+export function AlbumModel({ isOpen, currentPage, onOpen, onSelectPhoto }: AlbumModelProps) {
   const coverRef = useRef<THREE.Group>(null);
   const pagesRef = useRef<THREE.Group[]>([]);
 

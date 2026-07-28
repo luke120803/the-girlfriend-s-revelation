@@ -9,7 +9,7 @@ import { MosaicScreen } from "@/components/screens/MosaicScreen";
 import { LetterScreen } from "@/components/screens/LetterScreen";
 import { ClosingScreen } from "@/components/screens/ClosingScreen";
 import { QuizScreen } from "@/components/screens/QuizScreen";
-import { AlbumCinematicScreen } from "@/components/screens/AlbumCinematicScreen";
+import { Album3DScreen } from "@/components/screens/Album3DScreen";
 import { ACTS } from "@/content/acts";
 
 export const Route = createFileRoute("/")({
@@ -38,7 +38,7 @@ function Index() {
         <PreambleScreen onAdvance={() => scrollTo("revelacao")} />
         <RevelationScreen onAdvance={() => scrollTo("quiz")} />
         <QuizScreen onAdvance={() => scrollTo("album-3d")} />
-        <AlbumCinematicScreen onAdvance={() => scrollTo("mosaico")} />
+        <Album3DScreen />
         <MosaicScreen onAdvance={() => scrollTo("carta")} />
         <LetterScreen onAdvance={() => scrollTo("encerramento")} />
         <ClosingScreen />
